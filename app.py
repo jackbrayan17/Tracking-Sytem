@@ -185,14 +185,49 @@ def get_track(code):
             return jsonify({"error": "No track found for this code."}), 404
 
     except sqlite3.Error as e:
-        # Handle unexpected DB errors gracefully
         app.logger.error(f"Database error: {str(e)}")
         return jsonify({"error": f"Database error: {str(e)}"}), 500
 
     except Exception as e:
-        # Catch-all for unknown errors
         app.logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+@app.route("/tracks", methods=["GET"])
+def get_tracks():
+    with sqlite3.connect(DB) as conn:
+        conn.row_factory = sqlite3.Row
+        c = conn.cursor()
+        c.execute(''' 
+            SELECT t.code, t.start_time, t.end_time, 
+                   dl.country AS departure_country, dl.town AS departure_town,
+                   al.country AS arrival_country, al.town AS arrival_town
+            FROM tracks t
+            LEFT JOIN locations dl ON t.departure_location_id = dl.id
+            LEFT JOIN locations al ON t.arrival_location_id = al.id
+        ''')
+        tracks = [
+            {
+                "code": row["code"],
+                "start_time": row["start_time"],
+                "end_time": row["end_time"] if row["end_time"] else "Pending",
+                "departure": f"{row['departure_town']}, {row['departure_country']}",
+                "arrival": f"{row['arrival_town']}, {row['arrival_country']}"
+            } for row in c.fetchall()
+        ]
+    return jsonify(tracks)
+@app.route("/track/<code>/end", methods=["POST"])
+def end_track(code):
+    with sqlite3.connect(DB) as conn:
+        c = conn.cursor()
+        c.execute('''
+            UPDATE tracks
+            SET end_time = ?
+            WHERE code = ?
+        ''', (datetime.now().isoformat(), code))
+        
+        if c.rowcount == 0:
+            return jsonify({"error": "Track not found"}), 404
+        
+    return jsonify({"message": "Track ended successfully"}), 200
 
 # Launch App
 if __name__ == "__main__":
