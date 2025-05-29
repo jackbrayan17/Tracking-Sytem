@@ -195,7 +195,7 @@
         
         async function loadDepartureCountries() {
             try {
-                const response = await fetch('https://trackingsystem-iota.vercel.app/countries');
+                const response = await fetch('https://tracking-sytem.onrender.com/countries');
                 const countries = await response.json();
                 populateCountrySelect('departureCountry', countries);
             } catch (err) {
@@ -310,7 +310,7 @@
             };
         console.log(trackData);
             try {
-                const response = await fetch('https://trackingsystem-iota.vercel.app/create-track', {
+                const response = await fetch('https://tracking-sytem.onrender.com/create-track', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
