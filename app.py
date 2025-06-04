@@ -16,7 +16,6 @@ LOCATIONS_JSON = 'locations.json'
 def init_db():
     with sqlite3.connect(DB) as conn:
         c = conn.cursor()
-        # Create locations table
         c.execute('''
             CREATE TABLE IF NOT EXISTS locations (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,7 +25,6 @@ def init_db():
                 longitude REAL
             )
         ''')
-        # Create tracks table
         c.execute('''
             CREATE TABLE IF NOT EXISTS tracks (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,6 +38,14 @@ def init_db():
                 receiver_phone TEXT,
                 departure_location_id INTEGER,
                 arrival_location_id INTEGER,
+                carrier TEXT,
+                parcel_description TEXT,
+                weight TEXT,
+                quantity TEXT,
+                mode TEXT,
+                origin TEXT,
+                destination TEXT,
+                package_link TEXT,
                 FOREIGN KEY(departure_location_id) REFERENCES locations(id),
                 FOREIGN KEY(arrival_location_id) REFERENCES locations(id)
             )
@@ -98,35 +104,34 @@ def create_track():
     receiver_phone = data.get("receiver_phone")
     departure_location_id = data.get("departure_location_id")
     arrival_location_id = data.get("arrival_location_id")
-    # route = data.get("route", [])  # optional route list
-
-    # required_fields = [sender_name, sender_phone, receiver_name, receiver_phone, departure_location_id, arrival_location_id]
-    # if not all(required_fields):
-    #     return jsonify({"error": "Missing required fields"}), 400
+    carrier = data.get("carrier")
+    parcel_description = data.get("parcel_description")
+    weight = data.get("weight")
+    quantity = data.get("quantity")
+    mode = data.get("mode")
+    origin = data.get("origin")
+    destination = data.get("destination")
+    package_link = data.get("package_link")
 
     try:
         with sqlite3.connect(DB) as conn:
             c = conn.cursor()
             c.execute('''
                 INSERT INTO tracks (
-                    code, start_time, sender_name, sender_phone, receiver_name, receiver_phone, 
-                    departure_location_id, arrival_location_id
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    code, start_time, sender_name, sender_phone, receiver_name, receiver_phone,
+                    departure_location_id, arrival_location_id, carrier, parcel_description,
+                    weight, quantity, mode, origin, destination, package_link
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
-                code,
-                datetime.now().isoformat(),
-                sender_name,
-                sender_phone,
-                receiver_name,
-                receiver_phone,
-                departure_location_id,
-                arrival_location_id,
-                # json.dumps(route)  # serialize route list to JSON string
+                code, datetime.now().isoformat(), sender_name, sender_phone, receiver_name, receiver_phone,
+                departure_location_id, arrival_location_id, carrier, parcel_description, weight,
+                quantity, mode, origin, destination, package_link
             ))
     except sqlite3.IntegrityError:
         return jsonify({"error": "Code already exists"}), 400
 
     return jsonify({"message": "Track created", "code": code}), 201
+
 
 @app.route("/track/<code>", methods=["GET"])
 def get_track(code):
@@ -136,7 +141,7 @@ def get_track(code):
             cursor = conn.cursor()
             cursor.execute('''
                 SELECT t.start_time, t.end_time, t.route, t.sender_name, t.sender_phone,
-                       t.receiver_name, t.receiver_phone,
+                       t.receiver_name, t.receiver_phone,t.carrier, t.parcel_description, t.weight, t.quantity, t.mode, t.origin, t.destination, t.package_link,
                        dl.country AS departure_country, dl.town AS departure_town, dl.latitude AS departure_latitude, dl.longitude AS departure_longitude,
                        al.country AS arrival_country, al.town AS arrival_town, al.latitude AS arrival_latitude, al.longitude AS arrival_longitude
                 FROM tracks t
@@ -165,6 +170,14 @@ def get_track(code):
                 "sender_phone": row["sender_phone"],
                 "receiver_name": row["receiver_name"],
                 "receiver_phone": row["receiver_phone"],
+                "carrier": row["carrier"],
+                "parcel_description": row["parcel_description"],
+                "weight": row["weight"],
+                "quantity": row["quantity"],
+                "mode": row["mode"],
+                "origin": row["origin"],
+                "destination": row["destination"],
+                "package_link": row["package_link"],
                 "departure_location": {
                     "country": row["departure_country"],
                     "town": row["departure_town"],
