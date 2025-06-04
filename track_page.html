@@ -177,13 +177,13 @@
 
             <!-- New Fields -->
             <input type="text" id="carrier" placeholder="Carrier" class="w-full border border-gray-300 px-4 py-2 rounded" />
-            <textarea id="parcelDescription" placeholder="Parcel Description" rows="2" class="w-full border border-gray-300 px-4 py-2 rounded resize-y"></textarea>
+            <textarea id="parcel_description" placeholder="Parcel Description" rows="2" class="w-full border border-gray-300 px-4 py-2 rounded resize-y"></textarea>
             <input type="number" step="0.01" id="weight" placeholder="Weight (kg)" class="w-full border border-gray-300 px-4 py-2 rounded" />
             <input type="number" id="quantity" placeholder="Quantity" class="w-full border border-gray-300 px-4 py-2 rounded" />
             <input type="text" id="mode" placeholder="Mode (e.g. Air, Sea, Road)" class="w-full border border-gray-300 px-4 py-2 rounded" />
             <input type="text" id="origin" placeholder="Origin (city/country)" class="w-full border border-gray-300 px-4 py-2 rounded" />
             <input type="text" id="destination" placeholder="Destination (city/country)" class="w-full border border-gray-300 px-4 py-2 rounded" />
-            <input type="url" id="packageLink" placeholder="Package Link (optional)" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="url" id="package_link" placeholder="Package Link (optional)" class="w-full border border-gray-300 px-4 py-2 rounded" />
 
             <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Submit</button>
         </form>
@@ -322,13 +322,13 @@
         departure_location_id: document.getElementById('departureTown').value,
         arrival_location_id: document.getElementById('arrivalTown').value,
         carrier: document.getElementById('carrier').value.trim(),
-        parcelDescription: document.getElementById('parcelDescription').value.trim(),
+        parcel_description: document.getElementById('parcel_description').value.trim(),
         weight: parseFloat(document.getElementById('weight').value),
         quantity: parseInt(document.getElementById('quantity').value, 10),
         mode: document.getElementById('mode').value.trim(),
         origin: document.getElementById('origin').value.trim(),
         destination: document.getElementById('destination').value.trim(),
-        packageLink: document.getElementById('packageLink').value.trim()  
+        package_link: document.getElementById('package_Link').value.trim()  
       };
         console.log(trackData);
             try {
