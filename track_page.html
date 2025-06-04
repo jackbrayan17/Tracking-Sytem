@@ -131,51 +131,65 @@
         
     </div>
 
-    <div id="addTrackModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative">
-            <button onclick="document.getElementById('addTrackModal').style.display='none'" class="absolute top-2 right-2 text-gray-600 hover:text-red-600 text-lg font-bold">&times;</button>
-            <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">Add New Track</h2>
-            <form id="addTrackForm" class="space-y-4">
-                <div class="flex space-x-2">
-                    <input type="text" id="generatedShippingCode" placeholder="Generated Code" class="flex-1 border border-gray-300 px-4 py-2 rounded" readonly />
-                    <button type="button" onclick="generateShippingCode()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generate</button>
-                </div>
-                
-                <div>
-                    <label for="departureCountry" class="block text-gray-700 text-sm font-bold mb-2">Departure Country:</label>
-                    <select id="departureCountry" onchange="loadDepartureTowns()" class="w-full border border-gray-300 px-4 py-2 rounded" ></select>
-                </div>
-                <div>
-                    <label for="departureTown" class="block text-gray-700 text-sm font-bold mb-2">Departure Town:</label>
-                    <select id="departureTown" onchange="updateDepartureCoordinates()" class="w-full border border-gray-300 px-4 py-2 rounded"></select>
-                </div>
-                <div class="flex space-x-2">
-                    <input type="text" id="departureLatitude" placeholder="Latitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
-                    <input type="text" id="departureLongitude" placeholder="Longitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
-                </div>
-            
-                <div>
-                    <label for="arrivalCountry" class="block text-gray-700 text-sm font-bold mb-2">Arrival Country:</label>
-                    <select id="arrivalCountry" onchange="loadArrivalTowns()" class="w-full border border-gray-300 px-4 py-2 rounded"></select>
-                </div>
-                <div>
-                    <label for="arrivalTown" class="block text-gray-700 text-sm font-bold mb-2">Arrival Town:</label>
-                    <select id="arrivalTown" onchange="updateArrivalCoordinates()" class="w-full border border-gray-300 px-4 py-2 rounded" ></select>
-                </div>
-                <div class="flex space-x-2">
-                    <input type="text" id="arrivalLatitude" placeholder="Latitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
-                    <input type="text" id="arrivalLongitude" placeholder="Longitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
-                </div>
-            
-                <input type="text" id="senderName" placeholder="Sender Name" class="w-full border border-gray-300 px-4 py-2 rounded" />
-                <input type="text" id="senderPhone" placeholder="Sender Phone" class="w-full border border-gray-300 px-4 py-2 rounded" />
-                <input type="text"  id="receiverName" placeholder="Receiver Name" class="w-full border border-gray-300 px-4 py-2 rounded" />
-                <input type="text" id="receiverPhone" placeholder="Receiver Phone" class="w-full border border-gray-300 px-4 py-2 rounded" />
-                <!-- <button type="button" onclick="generateShippingCode()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Generate Shipping Code</button> -->
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Submit</button>
-            </form>
-        </div>
+   <div id="addTrackModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md relative overflow-y-auto max-h-[90vh]">
+        <button onclick="document.getElementById('addTrackModal').style.display='none'" class="absolute top-2 right-2 text-gray-600 hover:text-red-600 text-lg font-bold">&times;</button>
+        <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">Add New Track</h2>
+        <form id="addTrackForm" class="space-y-4">
+            <div class="flex space-x-2">
+                <input type="text" id="generatedShippingCode" placeholder="Generated Code" class="flex-1 border border-gray-300 px-4 py-2 rounded" readonly />
+                <button type="button" onclick="generateShippingCode()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generate</button>
+            </div>
+
+            <!-- Departure Info -->
+            <div>
+                <label for="departureCountry" class="block text-gray-700 text-sm font-bold mb-2">Departure Country:</label>
+                <select id="departureCountry" onchange="loadDepartureTowns()" class="w-full border border-gray-300 px-4 py-2 rounded"></select>
+            </div>
+            <div>
+                <label for="departureTown" class="block text-gray-700 text-sm font-bold mb-2">Departure Town:</label>
+                <select id="departureTown" onchange="updateDepartureCoordinates()" class="w-full border border-gray-300 px-4 py-2 rounded"></select>
+            </div>
+            <div class="flex space-x-2">
+                <input type="text" id="departureLatitude" placeholder="Latitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
+                <input type="text" id="departureLongitude" placeholder="Longitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
+            </div>
+
+            <!-- Arrival Info -->
+            <div>
+                <label for="arrivalCountry" class="block text-gray-700 text-sm font-bold mb-2">Arrival Country:</label>
+                <select id="arrivalCountry" onchange="loadArrivalTowns()" class="w-full border border-gray-300 px-4 py-2 rounded"></select>
+            </div>
+            <div>
+                <label for="arrivalTown" class="block text-gray-700 text-sm font-bold mb-2">Arrival Town:</label>
+                <select id="arrivalTown" onchange="updateArrivalCoordinates()" class="w-full border border-gray-300 px-4 py-2 rounded"></select>
+            </div>
+            <div class="flex space-x-2">
+                <input type="text" id="arrivalLatitude" placeholder="Latitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
+                <input type="text" id="arrivalLongitude" placeholder="Longitude" class="w-full border border-gray-300 px-4 py-2 rounded" readonly />
+            </div>
+
+            <!-- Sender & Receiver -->
+            <input type="text" id="senderName" placeholder="Sender Name" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="text" id="senderPhone" placeholder="Sender Phone" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="text" id="receiverName" placeholder="Receiver Name" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="text" id="receiverPhone" placeholder="Receiver Phone" class="w-full border border-gray-300 px-4 py-2 rounded" />
+
+            <!-- New Fields -->
+            <input type="text" id="carrier" placeholder="Carrier" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <textarea id="parcelDescription" placeholder="Parcel Description" rows="2" class="w-full border border-gray-300 px-4 py-2 rounded resize-y"></textarea>
+            <input type="number" step="0.01" id="weight" placeholder="Weight (kg)" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="number" id="quantity" placeholder="Quantity" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="text" id="mode" placeholder="Mode (e.g. Air, Sea, Road)" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="text" id="origin" placeholder="Origin (city/country)" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="text" id="destination" placeholder="Destination (city/country)" class="w-full border border-gray-300 px-4 py-2 rounded" />
+            <input type="url" id="packageLink" placeholder="Package Link (optional)" class="w-full border border-gray-300 px-4 py-2 rounded" />
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Submit</button>
+        </form>
     </div>
+</div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -195,7 +209,7 @@
         
         async function loadDepartureCountries() {
             try {
-                const response = await fetch('https://tracking-sytem.onrender.com/countries');
+                const response = await fetch('https://tracking-sytemjb.vercel.app/countries');
                 const countries = await response.json();
                 populateCountrySelect('departureCountry', countries);
             } catch (err) {
@@ -206,7 +220,7 @@
         
         async function loadArrivalCountries() {
             try {
-                const response = await fetch('https://tracking-sytem.onrender.com/countries');
+                const response = await fetch('https://tracking-sytemjb.vercel.app/countries');
                 const countries = await response.json();
                 populateCountrySelect('arrivalCountry', countries);
             } catch (err) {
@@ -240,7 +254,7 @@
         
         async function loadTowns(country, selectId) {
             try {
-                const response = await fetch(`https://tracking-sytem.onrender.com/towns/${country}`);
+                const response = await fetch(`https://tracking-sytemjb.vercel.app/towns/${country}`);
                 const towns = await response.json();
                 const selectElement = document.getElementById(selectId);
                 selectElement.innerHTML = '<option value="">Select Town</option>';
@@ -306,11 +320,19 @@
         receiver_name: document.getElementById('receiverName').value,
         receiver_phone: document.getElementById('receiverPhone').value,
         departure_location_id: document.getElementById('departureTown').value,
-        arrival_location_id: document.getElementById('arrivalTown').value
-            };
+        arrival_location_id: document.getElementById('arrivalTown').value,
+        carrier: document.getElementById('carrier').value.trim(),
+        parcelDescription: document.getElementById('parcelDescription').value.trim(),
+        weight: parseFloat(document.getElementById('weight').value),
+        quantity: parseInt(document.getElementById('quantity').value, 10),
+        mode: document.getElementById('mode').value.trim(),
+        origin: document.getElementById('origin').value.trim(),
+        destination: document.getElementById('destination').value.trim(),
+        packageLink: document.getElementById('packageLink').value.trim()  
+      };
         console.log(trackData);
             try {
-                const response = await fetch('https://tracking-sytem.onrender.com/create-track', {
+                const response = await fetch('https://tracking-sytemjb.vercel.app/create-track', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -342,7 +364,7 @@ async function loadTrack() {
     }
 
     try {
-        const response = await fetch(`https://tracking-sytem.onrender.com/track/${code}`);
+        const response = await fetch(`https://tracking-sytemjb.vercel.app/track/${code}`);
         if (!response.ok) {
             throw new Error("Track not found.");
         }
@@ -350,40 +372,64 @@ async function loadTrack() {
 
         // Display track info
         const infoDiv = document.getElementById('info');
-        infoDiv.innerHTML = `
-            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-6 space-y-6">
-  <div class="text-center">
-    <h2 class="text-2xl font-bold text-gray-800">📦 Delivery Details</h2>
-  </div>
-
-  <div class="border p-4 rounded-xl bg-gray-50 space-y-1">
-    <h3 class="text-lg font-semibold text-gray-700 mb-3">🛫 From</h3>
-    <p><span class="font-medium text-gray-800">Town:</span> ${track.departure_location.town}</p>
-    <p><span class="font-medium text-gray-800">Country:</span> ${track.departure_location.country}</p>
-  </div>
-
-  <div class="border p-4 rounded-xl bg-gray-50 space-y-1">
-    <h3 class="text-lg font-semibold text-gray-700 mb-3">🛬 To</h3>
-    <p><span class="font-medium text-gray-800">Town:</span> ${track.arrival_location.town}</p>
-    <p><span class="font-medium text-gray-800">Country:</span> ${track.arrival_location.country}</p>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="border p-4 rounded-xl bg-blue-50 space-y-1">
-      <h3 class="text-lg font-semibold text-blue-800 mb-3">📤 Sender</h3>
-      <p><span class="font-medium text-gray-800">Name:</span> ${track.sender_name}</p>
-      <p><span class="font-medium text-gray-800">Phone:</span> ${track.sender_phone}</p>
-    </div>
-
-    <div class="border p-4 rounded-xl bg-green-50 space-y-1">
-      <h3 class="text-lg font-semibold text-green-800 mb-3">📥 Receiver</h3>
-      <p><span class="font-medium text-gray-800">Name:</span> ${track.receiver_name}</p>
-      <p><span class="font-medium text-gray-800">Phone:</span> ${track.receiver_phone}</p>
+       infoDiv.innerHTML = `
+  <!-- Receiver's Details -->
+  <div class="bg-white shadow-md rounded-lg mb-6 overflow-hidden">
+    <div class="bg-red-600 text-white p-3 text-lg font-semibold">Receiver's Details</div>
+    <div class="p-4 space-y-2">
+      <p><span class="font-semibold">Name:</span> ${track.receiver_name || 'N/A'}</p>
+      <p><span class="font-semibold">Contact:</span> ${track.receiver_phone || 'N/A'}</p>
+      <p><span class="font-semibold">Email:</span> <a href="mailto:${track.receiver_email || '#'}" class="text-blue-600 underline">${track.receiver_email || 'N/A'}</a></p>
+      <p><span class="font-semibold">Address:</span> ${track.receiver_address || 'N/A'}</p>
     </div>
   </div>
-</div>
 
-        `;
+  <!-- More Details -->
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="bg-red-600 text-white p-3 text-lg font-semibold">More Details</div>
+    <table class="w-full text-left">
+      <tbody>
+        <tr class="border-b">
+          <td class="p-3 font-semibold">Carrier</td>
+          <td class="p-3">${track.carrier || 'N/A'}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="p-3 font-semibold">Parcel Description</td>
+          <td class="p-3">${track.parcel_description || 'N/A'}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="p-3 font-semibold">Weight</td>
+          <td class="p-3">${track.weight ? track.weight + ' kg' : 'N/A'}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="p-3 font-semibold">Quantity</td>
+          <td class="p-3">${track.quantity || 'N/A'}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="p-3 font-semibold">Mode</td>
+          <td class="p-3">${track.mode || 'N/A'}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="p-3 font-semibold">Origin</td>
+          <td class="p-3">${track.origin || 'N/A'}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="p-3 font-semibold">Destination</td>
+          <td class="p-3">${track.destination || 'N/A'}</td>
+        </tr>
+        <tr>
+          <td class="p-3 font-semibold">Package</td>
+          <td class="p-3">
+            <a href="${track.package_link || '#'}" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+              ${track.parcel_description || 'N/A'}
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+`;
+
 
         // Show map
         document.getElementById('map').style.display = 'block';
