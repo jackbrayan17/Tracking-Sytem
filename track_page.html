@@ -259,13 +259,14 @@
                 const selectElement = document.getElementById(selectId);
                 selectElement.innerHTML = '<option value="">Select Town</option>';
                 towns.forEach(town => {
-                    const option = document.createElement('option');
-                    option.value = town.id;
-                    option.dataset.lat = town.latitude;
-                    option.dataset.lng = town.longitude;
-                    option.textContent = town.town;
-                    selectElement.appendChild(option);
-                });
+                        const option = document.createElement('option');
+                        option.value = town.id;
+                        option.dataset.lat = town.latitude;
+                        option.dataset.lng = town.longitude;
+                        option.textContent = town.name;
+                        selectElement.appendChild(option);
+                    });
+
             } catch (err) {
                 alert(`⚠️ Error loading towns for ${country}`);
                 console.error(err);
